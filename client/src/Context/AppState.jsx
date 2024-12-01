@@ -25,6 +25,7 @@ const AppState = (props) => {
     };
     GetToken();
     UserProfile();
+    GetAllNotes();
   }, [localStorage.getItem("token")]);
 
   useEffect(() => {
