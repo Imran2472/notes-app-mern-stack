@@ -11,7 +11,7 @@ const AppState = (props) => {
   const [reload, setReload] = useState(false);
   const [SingleNote, setSingleNote] = useState([]);
   const navigate = useNavigate();
-  const URI = "http://localhost:4000/v1/api";
+  const URI = "https://notes-app-mern-stack.vercel.app/v1/api";
   const [showForm, setShowForm] = useState(false);
   const toggleForm = () => setShowForm(!showForm);
   const [showFormUpdate, setShowFormUpdate] = useState(false);
