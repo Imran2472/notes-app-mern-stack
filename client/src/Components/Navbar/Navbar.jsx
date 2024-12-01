@@ -1,8 +1,8 @@
 import React, { useContext, useEffect, useState } from "react";
 import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
-import AppContext from "../../Context/AppContext";
 import { useNavigate } from "react-router-dom";
+import AppContext from "../../Context/AppContext";
 function Navbar() {
   const [Open, setOpen] = useState(false);
   const [dropDown, setDropDown] = useState(false);

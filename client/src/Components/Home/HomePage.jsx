@@ -3,8 +3,8 @@ import Navbar from "../Navbar/Navbar";
 import Notes from "../Notes/Notes";
 import { FaPlus } from "react-icons/fa";
 import NotesForm from "../Notes/NotesForm";
-import AppContext from "../../Context/AppContext";
 import Footer from "../Footer/Footer";
+import AppContext from "../../Context/AppContext";
 
 function HomePage() {
   //   const [showForm, setShowForm] = React.useState(false);

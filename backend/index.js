@@ -11,7 +11,7 @@ DBConnect();
 const port = process.env.PORT || 3000;
 app.use(
   cors({
-    origin: ["https://imran-notes-app.netlify.app"],
+    origin: ["https://imran-notes-app.netlify.app", "http://localhost:5173"],
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
   })

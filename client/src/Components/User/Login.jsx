@@ -1,9 +1,9 @@
 import React, { useContext, useState } from "react";
-import AppContext from "../../Context/AppContext";
 import { Bounce, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Spiners from "../Spiners/Spiners";
 import { useNavigate } from "react-router-dom";
+import AppContext from "../../Context/AppContext";
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
