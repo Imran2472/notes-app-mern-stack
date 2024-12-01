@@ -40,7 +40,6 @@ const AppState = (props) => {
         },
         withCredentials: true,
       });
-      console.log(response);
       return response?.data;
     } catch (error) {
       console.log("Error in Registration", error);
@@ -60,7 +59,6 @@ const AppState = (props) => {
         }
       );
       localStorage.setItem("token", response.data.token);
-      setAuthentication(true);
       setReload(true);
       return response?.data;
     } catch (error) {

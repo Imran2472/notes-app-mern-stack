@@ -15,6 +15,7 @@ function Login() {
     setLoading(true);
     const res = await Login(email, password);
     setLoading(false);
+    console.log(res);
     if (res?.success === true) {
       toast.success(res?.message, {
         position: "top-right",
