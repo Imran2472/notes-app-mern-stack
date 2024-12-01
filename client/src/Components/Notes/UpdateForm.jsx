@@ -53,7 +53,7 @@ function UpdateForm() {
   };
 
   return (
-    <div className="updateNotes fixed top-0 left-0 right-0 bottom-0 h-[100vh] w-[100%] flex justify-center items-center px-[10px]">
+    <div className="updateNotes fixed top-0 left-0 right-0 bottom-0 z-[999] h-[100vh] w-[100%] flex justify-center items-center px-[10px]">
       {/* Notes Form Title Descrition  */}
       <form
         action=""

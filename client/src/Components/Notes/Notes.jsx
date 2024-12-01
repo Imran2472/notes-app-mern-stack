@@ -37,7 +37,7 @@ function Notes() {
     // eslint-disable-next-line
   }, [Notes, Time]);
   return (
-    <div className="py-[50px] lg:px-[90px] md:px-[50px] px-[10px]">
+    <div className="py-[50px] mb-[40px] lg:px-[90px] md:px-[50px] px-[10px]">
       <div className="grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-2 items-start">
         {Notes?.notes?.length === 0 ? (
           <>
