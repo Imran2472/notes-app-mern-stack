@@ -46,9 +46,13 @@ export const Login = async (req, res) => {
     if (!isMatch) {
       return res.json({ success: true, message: "Incorrect password" });
     }
-    const token = jwt.sign({ userId: user._id }, process.env.JWT_SECERATE, {
-      expiresIn: "48h",
-    });
+    const token = jwt.sign(
+      { userId: user._id },
+      `${process.env.JWT_SECERATE}`,
+      {
+        expiresIn: "48h",
+      }
+    );
     res.json({ success: true, token, message: "Logged in successfully", user });
   } catch (error) {
     console.error("Error in Login", error);
