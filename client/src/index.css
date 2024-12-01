@@ -1,0 +1,22 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+body {
+  background: #eff6ff;
+  font-family: "Roboto", sans-serif;
+}
+
+.notesform {
+  background: rgba(0, 0, 0, 0.3);
+}
+.updateNotes {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.description {
+  display: -webkit-box;
+  -webkit-line-clamp: 5;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
