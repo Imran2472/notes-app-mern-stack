@@ -13,8 +13,8 @@ function NotesForm() {
     setLoading(true);
     const res = await CreateNote(title, description);
     setLoading(false);
-    if (res?.data?.success === true) {
-      toast.success(res?.data?.message, {
+    if (res?.success === true) {
+      toast.success(res?.message, {
         position: "top-right",
         autoClose: 5000,
         hideProgressBar: false,
@@ -25,8 +25,11 @@ function NotesForm() {
         theme: "light",
         transition: Bounce,
       });
+      setTitle("");
+      setDescription("");
+      toggleForm();
     } else {
-      toast.error(res?.data?.message, {
+      toast.error(res?.message, {
         position: "top-right",
         autoClose: 5000,
         hideProgressBar: false,
@@ -38,9 +41,6 @@ function NotesForm() {
         transition: Bounce,
       });
     }
-    setTitle("");
-    setDescription("");
-    toggleForm();
   };
   return (
     <div className="notesform fixed top-0 left-0 right-0 bottom-0 z-[999] h-[100vh] w-[100%] flex justify-center items-center px-[10px]">

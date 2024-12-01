@@ -9,10 +9,18 @@ export const SignUp = async (req, res) => {
     const image = req.file.path;
     const user = await User.findOne({ email });
     if (user) {
-      return res.json({ message: "User already exists" });
+      return res.json({ success: false, message: "User already exists" });
+    }
+    if (!name || !email || !password) {
+      return res.json({ success: false, message: "Please fill all fields" });
     }
     const hashPassword = await bcrypt.hash(password, 8);
-    if (image) {
+    if (!image) {
+      return res.json({
+        success: false,
+        message: "Please upload a profile picture",
+      });
+    } else {
       const imageSrc = await cloudinary.uploader.upload(image);
       fs.unlinkSync(image);
       const newUser = new User({
@@ -27,8 +35,6 @@ export const SignUp = async (req, res) => {
         message: "User registered successfully",
         newUser,
       });
-    } else {
-      return res.json({ message: "Please upload a profile picture" });
     }
   } catch (error) {
     console.error("Error in SignUp", error);
@@ -42,9 +48,12 @@ export const Login = async (req, res) => {
     if (!user) {
       return res.json({ success: false, message: "User not found" });
     }
+    if (!email || !password) {
+      return res.json({ success: false, message: "Please fill all fields" });
+    }
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
-      return res.json({ success: true, message: "Incorrect password" });
+      return res.json({ success: false, message: "Incorrect password" });
     }
     const token = jwt.sign({ userId: user._id }, "!@#$%^&*()_+}{:?><?/}", {
       expiresIn: "48h",

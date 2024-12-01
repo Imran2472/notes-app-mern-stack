@@ -26,7 +26,7 @@ function UpdateForm() {
     const res = await UpdateNotes(id, title, description);
     setLoading(false);
     if (res?.data?.success === true) {
-      toast.success(res?.data?.message, {
+      toast.success(res?.message, {
         position: "top-right",
         autoClose: 5000,
         hideProgressBar: false,
@@ -36,8 +36,9 @@ function UpdateForm() {
         progress: undefined,
         theme: "light",
       });
+      toggleFormUpdate();
     } else {
-      toast.success(res?.data?.message, {
+      toast.success(res?.message, {
         position: "top-right",
         autoClose: 5000,
         hideProgressBar: false,
@@ -49,7 +50,6 @@ function UpdateForm() {
         transition: Bounce,
       });
     }
-    toggleFormUpdate();
   };
 
   return (

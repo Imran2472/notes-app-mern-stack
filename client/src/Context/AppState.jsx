@@ -25,12 +25,12 @@ const AppState = (props) => {
     };
     GetToken();
     UserProfile();
-    GetAllNotes();
   }, [localStorage.getItem("token")]);
 
   useEffect(() => {
     GetAllNotes();
-  }, [reload]);
+    GetAllNotes();
+  }, [reload, localStorage.getItem("token")]);
 
   const Register = async (formData) => {
     try {
@@ -41,7 +41,7 @@ const AppState = (props) => {
         withCredentials: true,
       });
 
-      return response;
+      return response?.data;
     } catch (error) {
       console.log("Error in Registration", error);
     }
@@ -62,7 +62,7 @@ const AppState = (props) => {
       localStorage.setItem("token", response.data.token);
       setAuthentication(true);
       setReload(true);
-      return response;
+      return response?.data;
     } catch (error) {
       console.log("Error in Login", error);
     }
@@ -95,7 +95,7 @@ const AppState = (props) => {
         withCredentials: true,
       });
       setUser(response?.data);
-      return response;
+      return response?.data;
     } catch (error) {}
   };
 
@@ -116,7 +116,7 @@ const AppState = (props) => {
         }
       );
       setReload(!reload);
-      return response;
+      return response?.data;
     } catch (error) {
       console.log("Error in Create Note", error);
     }
@@ -132,7 +132,7 @@ const AppState = (props) => {
       });
 
       setNotes(response.data);
-      return response;
+      return response?.data;
     } catch (error) {
       console.log("Error in Get All Notes", error);
     }
@@ -154,7 +154,7 @@ const AppState = (props) => {
         }
       );
       setReload(!reload);
-      return response;
+      return response?.data;
     } catch (error) {
       console.log("Error in Update Notes", error);
     }
@@ -169,7 +169,7 @@ const AppState = (props) => {
         withCredentials: true,
       });
       setSingleNote(response);
-      return response;
+      return response?.data;
     } catch (error) {
       console.log("Error in Get Single Notes", error);
     }
@@ -210,7 +210,9 @@ const AppState = (props) => {
         });
       }
       return response;
-    } catch (error) {}
+    } catch (error) {
+      console.log("Error in Delete Notes", error);
+    }
   };
   return (
     <AppContext.Provider

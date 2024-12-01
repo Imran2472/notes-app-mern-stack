@@ -14,16 +14,8 @@ function Register() {
   const navigate = useNavigate();
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const formData = new FormData();
-    formData.append("name", name);
-    formData.append("email", email);
-    formData.append("password", password);
-    formData.append("profile", profile);
-    setLoading(true);
-    const res = await Register(formData);
-    setLoading(false);
-    if (res?.data?.success === true) {
-      toast.success(res?.data?.message, {
+    if (!name || !email || !password) {
+      toast.error("All fields are required", {
         position: "top-right",
         autoClose: 5000,
         hideProgressBar: false,
@@ -34,8 +26,35 @@ function Register() {
         theme: "light",
         transition: Bounce,
       });
+      return;
+    }
+    const formData = new FormData();
+    formData.append("name", name);
+    formData.append("email", email);
+    formData.append("password", password);
+    formData.append("profile", profile);
+    setLoading(true);
+    const res = await Register(formData);
+    setLoading(false);
+    if (res?.success === true) {
+      toast.success(res?.message, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        transition: Bounce,
+      });
+      navigate("/login");
+      setName("");
+      setEmail("");
+      setPassword("");
+      setProfile(null);
     } else {
-      toast.error(res?.data?.message, {
+      toast.error(res?.message, {
         position: "top-right",
         autoClose: 5000,
         hideProgressBar: false,
@@ -47,11 +66,6 @@ function Register() {
         transition: Bounce,
       });
     }
-    navigate("/login");
-    setName("");
-    setEmail("");
-    setPassword("");
-    setProfile(null);
   };
   return (
     <div className="w-[100%] flex place-content-center place-items-center py-[5rem] px-[10px]">
@@ -91,6 +105,7 @@ function Register() {
           name="name"
           className="w-[100%] border px-[15px] py-[8px] border-gray-300 rounded-md mt-5"
           placeholder="Enter Name"
+          value={name}
           onChange={(e) => setName(e.target.value)}
         />
 
@@ -100,6 +115,7 @@ function Register() {
           name="email"
           className=" w-[100%] border px-[15px] py-[8px] border-gray-300 rounded-md my-3"
           placeholder="Enter Email"
+          value={email}
           onChange={(e) => setEmail(e.target.value)}
         />
 
@@ -109,6 +125,7 @@ function Register() {
           name="password"
           className="w-[100%] border px-[15px] py-[8px] border-gray-300 rounded-md"
           placeholder="Enter Password"
+          value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
         <p className="text-center text-gray-500 mt-4">

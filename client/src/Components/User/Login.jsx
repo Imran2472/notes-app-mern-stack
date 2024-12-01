@@ -15,8 +15,8 @@ function Login() {
     setLoading(true);
     const res = await Login(email, password);
     setLoading(false);
-    if (res?.data?.success === true) {
-      toast.success(res?.data?.message, {
+    if (res?.success === true) {
+      toast.success(res?.message, {
         position: "top-right",
         autoClose: 5000,
         hideProgressBar: false,
@@ -27,8 +27,11 @@ function Login() {
         theme: "light",
         transition: Bounce,
       });
+      navigate("/");
+      setEmail("");
+      setPassword("");
     } else {
-      toast.error(res?.data?.message, {
+      toast.error(res?.message, {
         position: "top-right",
         autoClose: 5000,
         hideProgressBar: false,
@@ -40,9 +43,6 @@ function Login() {
         transition: Bounce,
       });
     }
-    navigate("/");
-    setEmail("");
-    setPassword("");
   };
   return (
     <div className="w-[100%] flex place-content-center place-items-center py-[5rem] px-[10px]">
