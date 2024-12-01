@@ -3,7 +3,7 @@ import Navbar from "../Navbar/Navbar";
 import Notes from "../Notes/Notes";
 import { FaPlus } from "react-icons/fa";
 import NotesForm from "../Notes/NotesForm";
-import AppContext from "../Context/APPContext";
+import AppContext from "../../Context/AppContext";
 import Footer from "../Footer/Footer";
 
 function HomePage() {

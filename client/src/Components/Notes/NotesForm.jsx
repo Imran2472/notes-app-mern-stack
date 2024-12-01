@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react";
-import AppContext from "../Context/APPContext";
+import AppContext from "../../Context/AppContext";
 import { Bounce, toast } from "react-toastify";
 import Spiners from "../Spiners/Spiners";
 

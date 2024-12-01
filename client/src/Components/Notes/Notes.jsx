@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { MdDelete } from "react-icons/md";
 import { FaEdit } from "react-icons/fa";
-import AppContext from "../Context/APPContext";
+import AppContext from "../../Context/AppContext";
 import { useParams } from "react-router-dom";
 import UpdateForm from "./UpdateForm";
 import NoNotes from "./NoNotes";

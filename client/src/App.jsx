@@ -5,7 +5,7 @@ import Login from "./Components/User/Login";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useContext } from "react";
-import AppContext from "./Components/Context/APPContext";
+import AppContext from "./Context/AppContext";
 function App() {
   const { Authentication } = useContext(AppContext);
   return (

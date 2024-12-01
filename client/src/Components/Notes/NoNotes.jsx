@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import empty from "../../assets/empty.png";
-import AppContext from "../Context/APPContext";
+import AppContext from "../../Context/AppContext";
 import NotesForm from "./NotesForm";
 function NoNotes() {
   const { showForm, toggleForm } = useContext(AppContext);

@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
-import AppContext from "../Context/APPContext";
+import AppContext from "../../Context/AppContext";
 import { useNavigate } from "react-router-dom";
 function Navbar() {
   const [Open, setOpen] = useState(false);
