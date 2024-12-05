@@ -48,8 +48,8 @@ export const SignUp = async (req, res) => {
 
 export const VerificationCode = async (req, res) => {
   try {
-    const { verificationCode } = req.body;
-    const user = await User.findOne({ verificationCode });
+    const { verificationcode } = req.body;
+    const user = await User.findOne({ verificationcode });
     if (!user) {
       return res.json({
         success: false,
