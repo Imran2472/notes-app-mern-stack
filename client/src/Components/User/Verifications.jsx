@@ -38,7 +38,7 @@ function Verification() {
     }
   };
   return (
-    <div className="bg-blue-100 w-[100%] py-[12rem] flex flex-col justify-center items-center">
+    <div className="w-[100%] h-[100vh] flex flex-col  justify-center items-center max-w-[1600px] mx-auto ">
       <form
         action=""
         className="border w-[40%] max-[600px]:w-[100%] p-5 bg-white shadow-md rounded-lg"

@@ -45,7 +45,7 @@ function Login() {
     }
   };
   return (
-    <div className="w-[100%] flex place-content-center place-items-center py-[5rem] px-[10px]">
+    <div className="w-[100%] h-[100vh]  place-content-center place-items-center px-[10px] flex flex-col  justify-center items-center max-w-[1600px] mx-auto">
       <form
         action=""
         className="border p-5 rounded-xl w-[40%] max-[700px]:w-[100%] bg-white"

@@ -29,7 +29,7 @@ function Navbar() {
   }, [dropDown]);
   return (
     <>
-      <header className="bg-white py-[20px] lg:px-[90px] md:px-[50px] px-[10px]">
+      <header className="bg-white py-[20px] lg:px-[90px] md:px-[50px] px-[10px] relative z-[999]">
         <nav className="flex justify-between items-center">
           <div className="logo text-[25px] text-gray-900 font-medium">
             Notes App

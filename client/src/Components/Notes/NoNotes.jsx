@@ -5,7 +5,7 @@ import AppContext from "../../Context/AppContext";
 function NoNotes() {
   const { showForm, toggleForm } = useContext(AppContext);
   return (
-    <div className="fixed top-[6rem] left-0 right-0 w-[100%] h-[auto] py-[1rem] flex flex-col justify-center items-center text-center ">
+    <div className="fixed top-0 left-0 right-0 w-[100%] h-[100vh] py-[1rem] flex flex-col justify-center items-center text-center overflow-y-auto">
       <img
         src={empty}
         alt=""

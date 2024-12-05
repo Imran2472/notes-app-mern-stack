@@ -17,18 +17,22 @@ const AppState = (props) => {
   const toggleForm = () => setShowForm(!showForm);
   const [showFormUpdate, setShowFormUpdate] = useState(false);
   const toggleFormUpdate = () => setShowFormUpdate(!showFormUpdate);
-  useEffect(() => {
-    const GetToken = () => {
+  const GetToken = () => {
+    try {
       const token = localStorage.getItem("token");
       if (token) {
         setAuthentication(true);
       } else {
         setAuthentication(false);
       }
-    };
+    } catch (error) {
+      console.log("Error in token check", error);
+    }
+  };
+  useEffect(() => {
     GetToken();
     UserProfile();
-  }, [localStorage.getItem("token")]);
+  }, [reload, localStorage.getItem("token")]);
 
   useEffect(() => {
     GetAllNotes();
