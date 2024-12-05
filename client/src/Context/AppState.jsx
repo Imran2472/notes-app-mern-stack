@@ -12,6 +12,7 @@ const AppState = (props) => {
   const [SingleNote, setSingleNote] = useState([]);
   const navigate = useNavigate();
   const URI = "https://notes-app-mern-stack.vercel.app/v1/api";
+  // const URI = "http://localhost:4000/v1/api";
   const [showForm, setShowForm] = useState(false);
   const toggleForm = () => setShowForm(!showForm);
   const [showFormUpdate, setShowFormUpdate] = useState(false);
@@ -21,6 +22,8 @@ const AppState = (props) => {
       const token = localStorage.getItem("token");
       if (token) {
         setAuthentication(true);
+      } else {
+        setAuthentication(false);
       }
     };
     GetToken();
@@ -28,7 +31,6 @@ const AppState = (props) => {
   }, [localStorage.getItem("token")]);
 
   useEffect(() => {
-    GetAllNotes();
     GetAllNotes();
   }, [reload, localStorage.getItem("token")]);
 
@@ -45,7 +47,25 @@ const AppState = (props) => {
       console.log("Error in Registration", error);
     }
   };
-
+  const Verification = async (verificationcode) => {
+    try {
+      const Response = await axios.post(
+        `${URI}/user/verify`,
+        {
+          verificationcode,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+          withCredentials: true,
+        }
+      );
+      return Response?.data;
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
   const Login = async (email, password) => {
     try {
       const response = await axios.post(
@@ -58,8 +78,10 @@ const AppState = (props) => {
           withCredentials: true,
         }
       );
-      localStorage.setItem("token", response.data.token);
-      setReload(true);
+      if (response?.data?.token) {
+        localStorage.setItem("token", response.data.token);
+        setReload(true);
+      }
       return response?.data;
     } catch (error) {
       console.log("Error in Login", error);
@@ -232,6 +254,7 @@ const AppState = (props) => {
         SingleNote,
         UpdateNotes,
         DeleteNotes,
+        Verification,
       }}
     >
       {props.children}

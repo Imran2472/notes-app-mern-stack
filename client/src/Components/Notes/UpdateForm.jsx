@@ -36,7 +36,6 @@ function UpdateForm() {
         progress: undefined,
         theme: "light",
       });
-      toggleFormUpdate();
     } else {
       toast.success(res?.message, {
         position: "top-right",
@@ -50,6 +49,7 @@ function UpdateForm() {
         transition: Bounce,
       });
     }
+    toggleFormUpdate();
   };
 
   return (

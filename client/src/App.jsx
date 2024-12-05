@@ -6,6 +6,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useContext } from "react";
 import AppContext from "./Context/AppContext";
+import Verification from "./Components/User/Verifications";
 function App() {
   const { Authentication } = useContext(AppContext);
   return (
@@ -13,6 +14,7 @@ function App() {
       <Routes>
         <Route path="/" element={Authentication ? <HomePage /> : <Login />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/email-verification" element={<Verification />} />
         <Route path="/register" element={<Register />} />
       </Routes>
       <ToastContainer />

@@ -3,16 +3,17 @@ import bcrypt from "bcrypt";
 import fs from "fs";
 import cloudinary from "../Utils/Cloudinary.js";
 import jwt from "jsonwebtoken";
+import { SendVerificationCode, VeriFyEmail } from "../Utils/Email.js";
 export const SignUp = async (req, res) => {
   try {
     const { name, email, password } = req.body;
     const image = req.file.path;
+    if (!name || !email || !password) {
+      return res.json({ success: false, message: "Please fill all fields" });
+    }
     const user = await User.findOne({ email });
     if (user) {
       return res.json({ success: false, message: "User already exists" });
-    }
-    if (!name || !email || !password) {
-      return res.json({ success: false, message: "Please fill all fields" });
     }
     const hashPassword = await bcrypt.hash(password, 8);
     if (!image) {
@@ -23,11 +24,14 @@ export const SignUp = async (req, res) => {
     } else {
       const imageSrc = await cloudinary.uploader.upload(image);
       fs.unlinkSync(image);
+      const verificationcode = Math.floor(100000 + Math.random() * 900000);
+      SendVerificationCode(email, verificationcode);
       const newUser = new User({
         name,
         email,
         password: hashPassword,
         profile: imageSrc.secure_url,
+        verificationcode,
       });
       await newUser.save();
       res.json({
@@ -41,24 +45,55 @@ export const SignUp = async (req, res) => {
     res.json({ message: error.message });
   }
 };
+
+export const VerificationCode = async (req, res) => {
+  try {
+    const { verificationCode } = req.body;
+    const user = await User.findOne({ verificationCode });
+    if (!user) {
+      return res.json({
+        success: false,
+        message: "Verification code is invalid",
+      });
+    }
+    user.verified = true;
+    user.verificationcode = undefined;
+    await user.save();
+    VeriFyEmail(user.email, user.fullname);
+    res.json({ success: true, message: "Verification successful" });
+  } catch (error) {
+    console.error("Error in VerificationCode", error);
+    res.json({ message: error.message });
+  }
+};
+
 export const Login = async (req, res) => {
   try {
     const { email, password } = req.body;
     const user = await User.findOne({ email });
-    if (!user) {
-      return res.json({ success: false, message: "User not found" });
-    }
     if (!email || !password) {
       return res.json({ success: false, message: "Please fill all fields" });
     }
-    const isMatch = await bcrypt.compare(password, user.password);
-    if (!isMatch) {
-      return res.json({ success: false, message: "Incorrect password" });
+    if (!user) {
+      return res.json({ success: false, message: "User not found" });
     }
-    const token = jwt.sign({ userId: user._id }, "!@#$%^&*()_+}{:?><?/}", {
-      expiresIn: "48h",
-    });
-    res.json({ success: true, token, message: "Logged in successfully", user });
+    if (user.verified === true) {
+      const isMatch = await bcrypt.compare(password, user.password);
+      if (!isMatch) {
+        return res.json({ success: false, message: "Incorrect password" });
+      }
+      const token = jwt.sign({ userId: user._id }, "!@#$%^&*()_+}{:?><?/}", {
+        expiresIn: "48h",
+      });
+      res.json({
+        success: true,
+        token,
+        message: "Logged in successfully",
+        user,
+      });
+    } else {
+      return res.json({ message: "Email not verified" });
+    }
   } catch (error) {
     console.error("Error in Login", error);
     res.json({ message: error.message });
@@ -70,10 +105,8 @@ export const Profile = async (req, res) => {
     const user = req.user;
     res.json({
       success: true,
-      id: user._id,
-      name: user.name,
-      email: user.email,
-      profile: user.profile,
+      message: "User Profile",
+      user,
     });
   } catch (error) {
     console.error("Error in Profile", error);

@@ -10,7 +10,7 @@ export const Authorization = async (req, res, next) => {
     const decoded = jwt.verify(token, "!@#$%^&*()_+}{:?><?/}");
 
     const id = decoded.userId;
-    const user = await User.findById(id);
+    const user = await User.findById(id).select("-password");
     if (!user) {
       return res.json({ message: "User not found." });
     }

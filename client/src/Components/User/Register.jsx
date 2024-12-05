@@ -49,7 +49,7 @@ function Register() {
         theme: "light",
         transition: Bounce,
       });
-      navigate("/login");
+      navigate("/email-verification");
       setName("");
       setEmail("");
       setPassword("");

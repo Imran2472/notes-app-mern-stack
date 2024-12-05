@@ -8,7 +8,6 @@ function Navbar() {
   const [dropDown, setDropDown] = useState(false);
   const navigate = useNavigate();
   const { Authentication, Logout, user } = useContext(AppContext);
-
   const toggleMenu = () => {
     setOpen(!Open);
   };
@@ -57,7 +56,7 @@ function Navbar() {
                 <>
                   <li className="dropsdown" onClick={toggleOpen}>
                     <img
-                      src={user?.profile}
+                      src={user?.user?.profile}
                       alt=""
                       className="w-[40px] h-[40px] rounded-full object-contain cursor-pointer"
                     />
@@ -66,7 +65,7 @@ function Navbar() {
                     <>
                       <ul className="fixed top-[70px] right-[2rem] w-[150px] bg-white p-3 border rounded-md z-10">
                         <li className="px-[10px] py-[5px] cursor-pointer rounded-md hover:bg-blue-500 hover:text-white">
-                          {user?.name}
+                          {user?.user?.name}
                         </li>
                         <li
                           className="px-[10px] py-[5px] cursor-pointer mt-2 rounded-md hover:bg-blue-500 hover:text-white"
