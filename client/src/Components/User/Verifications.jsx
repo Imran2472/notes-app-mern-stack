@@ -10,7 +10,6 @@ function Verification() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     const res = await Verification(verificationcode);
-    console.log(res);
     if (res.success) {
       toast.success(res.message, {
         position: "top-center",

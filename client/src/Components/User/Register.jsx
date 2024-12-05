@@ -35,7 +35,6 @@ function Register() {
     formData.append("profile", profile);
     setLoading(true);
     const res = await Register(formData);
-    console.log(res);
     setLoading(false);
     if (res?.success === true) {
       toast.success(res?.message, {
