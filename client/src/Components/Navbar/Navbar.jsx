@@ -48,7 +48,10 @@ function Navbar() {
             }`}
           >
             <ul className="flex items-center gap-5 max-[600px]:flex-col max-[600px]:gap-10">
-              <li className="text-[16px] text-gray-800 font-normal max-[600px]:text-white cursor-pointer">
+              <li
+                className="text-[16px] text-gray-800 font-normal max-[600px]:text-white cursor-pointer"
+                onClick={() => navigate("/")}
+              >
                 Home
               </li>
               <li className="text-[16px] text-gray-800 font-normal max-[600px]:text-white cursor-pointer">
@@ -72,7 +75,10 @@ function Navbar() {
                   {dropDown && (
                     <>
                       <ul className="fixed top-[70px] right-[2rem] w-[150px] bg-white p-3 border rounded-md z-10 max-[600px]:relative max-[600px]:top-[0px] max-[600px]:right-[0px] max-[600px]:w-[auto] max-[600px]:bg-transparent max-[600px]:text-white max-[600px]:border-none max-[600px]:text-center">
-                        <li className="px-[10px] py-[5px] cursor-pointer rounded-md hover:bg-blue-500 hover:text-white max-[600px]:border-b-[1px] max-[600px]:border-white max-[600px]:rounded-none" onClick={()=> navigate("/profile")}>
+                        <li
+                          className="px-[10px] py-[5px] cursor-pointer rounded-md hover:bg-blue-500 hover:text-white max-[600px]:border-b-[1px] max-[600px]:border-white max-[600px]:rounded-none"
+                          onClick={() => navigate("/profile")}
+                        >
                           Profile
                         </li>
                         <li className="px-[10px] py-[5px] cursor-pointer rounded-md hover:bg-blue-500 hover:text-white max-[600px]:border-b-[1px] max-[600px]:border-white max-[600px]:rounded-none">

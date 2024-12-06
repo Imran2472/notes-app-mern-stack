@@ -141,3 +141,28 @@ export const UpdateProfile = async (req, res) => {
     res.json({ message: error.message });
   }
 };
+
+export const ForgotPassword = async (req, res) => {
+  try {
+    const { oldPassword, newPassword } = req.body;
+    const id = req.params.id;
+    console.log(id);
+    console.log(oldPassword, newPassword);
+    const user = await User.findById(id);
+    if (!user) {
+      return res.json({ message: "User not found" });
+    }
+    const isConform = await bcrypt.compare(oldPassword, user.password);
+    console.log(isConform);
+    if (!isConform) {
+      return res.json({ message: "Incorrect password" });
+    }
+    const hashPassword = await bcrypt.hash(newPassword, 8);
+    user.password = hashPassword;
+    await user.save();
+    res.json({ success: true, message: "Password updated successfully" });
+  } catch (error) {
+    console.error("Error in ForgotPassword", error);
+    res.json({ message: error.message });
+  }
+};

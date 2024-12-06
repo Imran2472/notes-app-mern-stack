@@ -1,5 +1,6 @@
 import express from "express";
 import {
+  ForgotPassword,
   Login,
   Profile,
   SignUp,
@@ -20,5 +21,6 @@ router.post(
   Authorization,
   UpdateProfile
 );
+router.post("/forget-password/:id", Authorization, ForgotPassword);
 
 export default router;

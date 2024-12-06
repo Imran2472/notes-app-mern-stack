@@ -4,7 +4,7 @@ import Navbar from "../Navbar/Navbar";
 import { Bounce, toast } from "react-toastify";
 import Spiners from "../Spiners/Spiners";
 function Profile() {
-  const { user, UpdateProfile } = useContext(AppContext);
+  const { user, UpdateProfile, ForgetPass } = useContext(AppContext);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [id, setId] = useState("");
@@ -12,6 +12,8 @@ function Profile() {
   const [preview, setPreview] = useState(null);
   const [loading, setLoading] = useState(false);
   const [update, setUpdate] = useState(false);
+  const [oldPassword, setOldPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
 
   useEffect(() => {
     const RenderValues = () => {
@@ -33,7 +35,7 @@ function Profile() {
     const formData = new FormData();
     formData.append("name", name);
     formData.append("email", email);
-    setLoading(true)
+    setLoading(true);
     profile && formData.append("profile", profile);
     const res = await UpdateProfile(id, formData);
     if (res.success) {
@@ -48,11 +50,43 @@ function Profile() {
         theme: "light",
         transition: Bounce,
       });
-      setLoading(false)
+      setLoading(false);
       HandleEdite();
       setTimeout(() => {
         window.location.reload();
       }, 1000);
+    } else {
+      toast.error(res?.message, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        transition: Bounce,
+      });
+    }
+  };
+
+  const HandlePassword = async (e) => {
+    e.preventDefault();
+    const res = await ForgetPass(id, oldPassword, newPassword);
+    if (res.success) {
+      toast.success(res?.message, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        transition: Bounce,
+      });
+      setOldPassword("");
+      setNewPassword("");
     } else {
       toast.error(res?.message, {
         position: "top-right",
@@ -195,6 +229,54 @@ function Profile() {
                   </div>
                 </>
               )}
+            </div>
+          </form>
+
+          {/* ---upadate password--- */}
+          <form
+            action=""
+            className="bg-white shadow-md rounded-lg p-9 w-[60%] max-[600px]:w-[100%] mt-4"
+            onSubmit={HandlePassword}
+          >
+            <h1 className="text-xl font-medium text-gray-800 mt-[2rem] mb-4">
+              Update Your Password
+            </h1>
+            <p className="text-sm text-gray-600 font-light mb-4">
+              Change your password if you want.
+            </p>
+            <div className="flex flex-col gap-6">
+              <div className="">
+                <label className="text-gray-600 text-[16px] ">
+                  Old Password:
+                </label>
+                <input
+                  type="text"
+                  className="border w-full px-3 py-[10px] text-sm focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-indigo-600 rounded-lg mt-2"
+                  placeholder="Enter Old Password"
+                  value={oldPassword}
+                  onChange={(e) => setOldPassword(e.target.value)}
+                />
+              </div>
+              <div>
+                <label className="text-gray-600 text-[16px] mb-3">
+                  New Password:
+                </label>
+                <input
+                  type="text"
+                  className="border w-full px-3 py-[10px] text-sm focus:outline-none focus:ring-2 focus:ring-indigo-600 focus:border-indigo-600 rounded-lg mt-2"
+                  placeholder="Enter New Password"
+                  value={newPassword}
+                  onChange={(e) => setNewPassword(e.target.value)}
+                />
+              </div>
+            </div>
+            <div className="flex justify-end items-center gap-4 mt-4">
+              <button
+                type="submit"
+                className="text-white bg-blue-500 px-[20px] py-[10px] rounded-lg hover:bg-blue-600 mt-4"
+              >
+                Update Password
+              </button>
             </div>
           </form>
         </div>

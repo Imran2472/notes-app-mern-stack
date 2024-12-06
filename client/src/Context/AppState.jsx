@@ -258,6 +258,28 @@ const AppState = (props) => {
       console.log("Error in Update Profile", error);
     }
   };
+  const ForgetPass = async (id, oldPassword, newPassword) => {
+    try {
+      const response = await axios.post(
+        `${URI}/user/forget-password/${id}`,
+        {
+          oldPassword,
+          newPassword,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: localStorage.getItem("token"),
+          },
+          withCredentials: true,
+        }
+      );
+      setReload(!reload);
+      return response?.data;
+    } catch (error) {
+      console.log("Error in Forget Password", error);
+    }
+  };
   return (
     <AppContext.Provider
       value={{
@@ -280,6 +302,7 @@ const AppState = (props) => {
         DeleteNotes,
         Verification,
         UpdateProfile,
+        ForgetPass,
       }}
     >
       {props.children}

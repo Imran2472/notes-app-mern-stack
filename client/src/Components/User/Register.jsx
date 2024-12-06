@@ -4,6 +4,7 @@ import "react-toastify/dist/ReactToastify.css";
 import Spiners from "../Spiners/Spiners";
 import { useNavigate } from "react-router-dom";
 import AppContext from "../../Context/AppContext";
+import upload from "../../assets/upload.png";
 function Register() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -14,7 +15,7 @@ function Register() {
   const navigate = useNavigate();
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!name || !email || !password) {
+    if (!name || !email || !password || !profile) {
       toast.error("All fields are required", {
         position: "top-right",
         autoClose: 5000,
@@ -79,15 +80,14 @@ function Register() {
         </h1>
 
         <div className="text-center flex justify-center items-center mt-3">
-          <label className="h-[80px] w-[80px] rounded-full" htmlFor="profile">
+          <label
+            className="rounded-full flex flex-col justify-center items-center gap-3"
+            htmlFor="profile"
+          >
             <img
-              src={
-                profile
-                  ? URL.createObjectURL(profile)
-                  : "https://img.freepik.com/premium-vector/man-avatar-profile-picture-vector-illustration_268834-538.jpg"
-              }
+              src={profile ? URL.createObjectURL(profile) : upload}
               alt=""
-              className="w-[100%] h-[100%] object-cover object-top cursor-pointer rounded-full"
+              className="h-[120px] w-[120px] object-cover object-top cursor-pointer rounded-full border"
             />
             <input
               type="file"
@@ -96,6 +96,15 @@ function Register() {
               name="profile"
               onChange={(e) => setProfile(e.target.files[0])}
             />
+            {profile ? (
+              ""
+            ) : (
+              <>
+                <div className="upload w-[200px] py-[7px] bg-gray-900 text-white rounded-lg text-sm font-light">
+                  Upload Profile
+                </div>
+              </>
+            )}
           </label>
         </div>
 
