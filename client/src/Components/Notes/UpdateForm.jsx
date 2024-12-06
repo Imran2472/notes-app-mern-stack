@@ -35,6 +35,7 @@ function UpdateForm() {
         draggable: true,
         progress: undefined,
         theme: "light",
+        transition: Bounce,
       });
     } else {
       toast.success(res?.message, {

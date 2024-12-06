@@ -59,7 +59,7 @@ export const VerificationCode = async (req, res) => {
     user.verified = true;
     user.verificationcode = undefined;
     await user.save();
-    VeriFyEmail(user.email, user.fullname);
+    VeriFyEmail(user.email, user.name);
     res.json({ success: true, message: "Verification successful" });
   } catch (error) {
     console.error("Error in VerificationCode", error);
@@ -110,6 +110,34 @@ export const Profile = async (req, res) => {
     });
   } catch (error) {
     console.error("Error in Profile", error);
+    res.json({ message: error.message });
+  }
+};
+
+export const UpdateProfile = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const { name, email } = req.body;
+    const user = await User.findById(id);
+    if (!user) {
+      return res.json({ message: "User not found" });
+    }
+
+    user.name = name;
+    user.email = email;
+    if (req.file) {
+      const imageSrc = await cloudinary.uploader.upload(req.file.path);
+      fs.unlinkSync(req.file.path);
+      user.profile = imageSrc.secure_url;
+    }
+    await user.save();
+    res.json({
+      success: true,
+      message: "User profile updated successfully",
+      user,
+    });
+  } catch (error) {
+    console.error("Error in UpdateProfile", error);
     res.json({ message: error.message });
   }
 };

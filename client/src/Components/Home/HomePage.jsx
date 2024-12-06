@@ -17,7 +17,7 @@ function HomePage() {
       {Authentication ? (
         <>
           <div
-            className="fixed bottom-[4rem] right-[3rem] h-[60px] w-[60px] rounded-full bg-black text-white text-[25px] cursor-pointer flex justify-center items-center"
+            className="fixed bottom-[4rem] max-[400px]:bottom-[6rem] max-[400px]:right-[2rem] max-[400px]:w-[46px] max-[400px]:h-[46px] right-[3rem] h-[60px] w-[60px] rounded-full bg-black text-white max-[400px]:text-[20px] text-[25px] cursor-pointer flex justify-center items-center"
             onClick={toggleForm}
           >
             <FaPlus />

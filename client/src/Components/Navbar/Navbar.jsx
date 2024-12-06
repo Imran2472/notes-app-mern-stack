@@ -3,6 +3,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
 import { useNavigate } from "react-router-dom";
 import AppContext from "../../Context/AppContext";
+import logo from "../../assets/logo.png";
 function Navbar() {
   const [Open, setOpen] = useState(false);
   const [dropDown, setDropDown] = useState(false);
@@ -31,8 +32,15 @@ function Navbar() {
     <>
       <header className="bg-white py-[20px] lg:px-[90px] md:px-[50px] px-[10px] relative z-[999]">
         <nav className="flex justify-between items-center">
-          <div className="logo text-[25px] text-gray-900 font-medium">
-            Notes App
+          <div className="flex items-end gap-1">
+            <img
+              src={logo}
+              alt=""
+              className="w-[30px] h-[30px] rotate-[270deg]"
+            />
+            <span className="text-[23px] text-gray-900 font-medium">
+              Notes App
+            </span>
           </div>
           <div
             className={`navbar max-[600px]:fixed max-[600px]:top-0 max-[600px]:left-0 max-[600px]:right-0 max-[600px]:w-[90%] max-[600px]:h-[100vh] items-center justify-center max-[600px]:bg-gray-900 ${
@@ -63,8 +71,11 @@ function Navbar() {
                   </li>
                   {dropDown && (
                     <>
-                      <ul className="fixed top-[70px] right-[2rem] w-[150px] bg-white p-3 border rounded-md z-10">
-                        <li className="px-[10px] py-[5px] cursor-pointer rounded-md hover:bg-blue-500 hover:text-white">
+                      <ul className="fixed top-[70px] right-[2rem] w-[150px] bg-white p-3 border rounded-md z-10 max-[600px]:relative max-[600px]:top-[0px] max-[600px]:right-[0px] max-[600px]:w-[auto] max-[600px]:bg-transparent max-[600px]:text-white max-[600px]:border-none max-[600px]:text-center">
+                        <li className="px-[10px] py-[5px] cursor-pointer rounded-md hover:bg-blue-500 hover:text-white max-[600px]:border-b-[1px] max-[600px]:border-white max-[600px]:rounded-none" onClick={()=> navigate("/profile")}>
+                          Profile
+                        </li>
+                        <li className="px-[10px] py-[5px] cursor-pointer rounded-md hover:bg-blue-500 hover:text-white max-[600px]:border-b-[1px] max-[600px]:border-white max-[600px]:rounded-none">
                           {user?.user?.name}
                         </li>
                         <li

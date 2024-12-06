@@ -238,6 +238,26 @@ const AppState = (props) => {
       console.log("Error in Delete Notes", error);
     }
   };
+
+  const UpdateProfile = async (id, formData) => {
+    try {
+      const response = await axios.post(
+        `${URI}/user/profile-update/${id}`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            Authorization: localStorage.getItem("token"),
+          },
+          withCredentials: true,
+        }
+      );
+      setReload(!reload);
+      return response?.data;
+    } catch (error) {
+      console.log("Error in Update Profile", error);
+    }
+  };
   return (
     <AppContext.Provider
       value={{
@@ -259,6 +279,7 @@ const AppState = (props) => {
         UpdateNotes,
         DeleteNotes,
         Verification,
+        UpdateProfile,
       }}
     >
       {props.children}
